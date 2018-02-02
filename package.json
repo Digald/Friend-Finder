@@ -1,0 +1,24 @@
+{
+  "name": "friend-finder",
+  "version": "1.0.0",
+  "description": "Get matched with another person based on question and self-ratings.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Digald/Friend-Finder.git"
+  },
+  "author": "Mark Alaniz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Digald/Friend-Finder/issues"
+  },
+  "homepage": "https://github.com/Digald/Friend-Finder#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  }
+}
