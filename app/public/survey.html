@@ -147,7 +147,7 @@
                     <option>5 (Strongly Agree)</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-info btn-lg btn-block">Get your match!</button>
+            <button id="submitForm" type="submit" class="btn btn-info btn-lg btn-block">Get your match!</button>
         </form>
         <hr class="my-4">
         <footer class="footer">
@@ -163,4 +163,13 @@
     crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
     crossorigin="anonymous"></script>
-<script></script>
+<script>
+    $(document).ready(function () {    
+        function formReset(){
+            $("#myForm").reset();
+        }
+        $("#submitForm").on("click", function(){
+            formReset();
+        });
+    });
+</script>
