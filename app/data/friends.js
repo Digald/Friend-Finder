@@ -1,7 +1,3 @@
-var friendsArray = [{
-    name: "",
-    photo: "",
-    scores: []
-}];
+var friendsArray = [];
 
 module.exports = friendsArray;

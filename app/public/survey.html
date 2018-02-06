@@ -145,11 +145,29 @@
                 <option value="5">5 (Strongly Agree)</option>
             </select>
         </div>
-        <button id="submitForm" type="submit" class="btn btn-info btn-lg btn-block">Get your match!</button>
+        <button id="submitForm" type="submit" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Get your match!</button>
         <hr class="my-4">
         <footer class="footer">
             <a href="/api/friends">API Friends List</a>
         </footer>
+        <!-- match modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Best Match</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
@@ -161,6 +179,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
     crossorigin="anonymous"></script>
 <script>
+    // endable traditional parameter encoding
+    jQuery.ajaxSettings.traditional = true;
     $("#submitForm").on("click", function () {
         // validation
         function validate() {
@@ -175,13 +195,17 @@
             var friendData = {
                 name: $("#yourName").val().trim(),
                 photo: $("#yourPhoto").val().trim(),
-                scores: [$("#select1").val(), $("#select2").val(), $("#select3").val(), $("#select4").val(), $("#select5").val(), $("#select6").val(), $("#select7").val(), $("#select8").val(), $("#select9").val(), $("#select10").val()]
+                scores: [$("#select1").val(), $("#select2").val(), $("#select3").val(), $("#select4").val(),
+                $("#select5").val(), $("#select6").val(), $("#select7").val(), $("#select8").val(),
+                $("#select9").val(), $("#select10").val()]
             }
             console.log(friendData);
             // store URL into a variable
             var currentURL = window.location.origin;
             $.ajax({ url: currentURL + '/api/friends', data: friendData, method: "POST" }).done(function (data) {
-                console.log(data[1].name);
+                // post request sends to the api route which then pushes it to the friends array. The json response is sent back as data and can be console.log
+                console.log(data);
+
             });
         } else {
             console.log("nope");
