@@ -8,6 +8,11 @@
     <title>Friends Survey</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
         crossorigin="anonymous">
+        <style>
+            #matchImg {
+                max-width: 100%
+            }
+        </style>
 </head>
 
 <body>
@@ -161,6 +166,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <h1 id="matchName"></h1>
+                        <img id="matchImg">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -204,9 +211,18 @@
             var currentURL = window.location.origin;
             $.ajax({ url: currentURL + '/api/friends', data: friendData, method: "POST" }).done(function (data) {
                 // post request sends to the api route which then pushes it to the friends array. The json response is sent back as data and can be console.log
-                console.log(data);
-
+                console.log(JSON.stringify(data));
+                // Take response and post it to modal
+                $("#matchName").text(data.name);
+                $("#matchImg").attr("src", data.photo);
+                // Toggle the modal after data has been added
+                $("#myModal").modal('toggle');
             });
+
+
+
+
+
         } else {
             console.log("nope");
         }

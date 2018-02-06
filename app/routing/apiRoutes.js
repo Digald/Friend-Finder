@@ -6,14 +6,12 @@ module.exports = function(app) {
   });
 
   app.post("/api/friends", function(req, res) {
+    // Stores current user into variable
     var currUser = req.body;
-    console.log(currUser);
-    // calculate best match based on results
-    // bestMatch(currUser, friendsArray);
-    // sends total friends array back to the front-end client so you can return the data
-    friendsArray.push(req.body);
-    // console.log("from POST: " + JSON.stringify(friendsArray,null,2));
+    // Returns json of best match
     res.json(bestMatch(currUser, friendsArray));
+    // After the match has been made, then the user is added to the list of friends in order to avoid matching with self
+    friendsArray.push(req.body);
   });
 };
 
@@ -39,16 +37,10 @@ function bestMatch(currUser, friendsArray) {
       // set the match equal to that entire object if it has the smallest different
       var match = friendsArray[i];
     }
-    
   }
-  return JSON.stringify(match);
+  return match;
 }
 
 function add(a, b) {
   return parseInt(a) + parseInt(b);
 }
-
-// {
-// 	"name": "Joe",
-// 	"scores": [1,2,3,5,3,4,2,3,3,3]
-// }
