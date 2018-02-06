@@ -5,7 +5,10 @@ module.exports = function(app) {
     res.json(friendsArray);
   });
 
-  app.post('/api/friends', function(req, res) {
+  app.post("/api/friends", function(req, res) {
+    // console.log(req.body);
     friendsArray.push(req.body);
+    // sends total friends array back to the front-end client so you can return the data
+    res.json(friendsArray);
   });
 };

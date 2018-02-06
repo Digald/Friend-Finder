@@ -180,8 +180,8 @@
             console.log(friendData);
             // store URL into a variable
             var currentURL = window.location.origin;
-            $.ajax(currentURL + "/api/friends", friendData, function (data) {
-                console.log(data);
+            $.ajax({ url: currentURL + '/api/friends', data: friendData, method: "POST" }).done(function (data) {
+                console.log(data[1].name);
             });
         } else {
             console.log("nope");
