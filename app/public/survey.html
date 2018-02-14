@@ -8,11 +8,17 @@
     <title>Friends Survey</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
         crossorigin="anonymous">
-        <style>
-            #matchImg {
-                max-width: 100%
-            }
-        </style>
+    <style>
+        #matchImg {
+            max-width: 100%
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -176,57 +182,51 @@
             </div>
         </div>
     </div>
+    <script>
+        // endable traditional parameter encoding
+        jQuery.ajaxSettings.traditional = true;
+        $("#submitForm").on("click", function () {
+            // validation
+            function validate() {
+                $(".form-control").each(function () {
+                    if ($(this).val() === "") {
+                        return false;
+                    }
+                });
+                return true;
+            }
+            if (validate() == true) {
+                var friendData = {
+                    name: $("#yourName").val().trim(),
+                    photo: $("#yourPhoto").val().trim(),
+                    scores: [$("#select1").val(), $("#select2").val(), $("#select3").val(), $("#select4").val(),
+                    $("#select5").val(), $("#select6").val(), $("#select7").val(), $("#select8").val(),
+                    $("#select9").val(), $("#select10").val()]
+                }
+                console.log(friendData);
+                // store URL into a variable
+                var currentURL = window.location.origin;
+                $.ajax({ url: currentURL + '/api/friends', data: friendData, method: "POST" }).done(function (data) {
+                    // post request sends to the api route which then pushes it to the friends array. The json response is sent back as data and can be console.log
+                    console.log(JSON.stringify(data));
+                    // Take response and post it to modal
+                    $("#matchName").text(data.name);
+                    $("#matchImg").attr("src", data.photo);
+                    // Toggle the modal after data has been added
+                    $("#myModal").modal('toggle');
+                });
+
+
+
+
+
+            } else {
+                console.log("nope");
+            }
+            return false;
+
+        });
+    </script>
 </body>
 
 </html>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-    crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-    crossorigin="anonymous"></script>
-<script>
-    // endable traditional parameter encoding
-    jQuery.ajaxSettings.traditional = true;
-    $("#submitForm").on("click", function () {
-        // validation
-        function validate() {
-            $(".form-control").each(function () {
-                if ($(this).val() === "") {
-                    return false;
-                }
-            });
-            return true;
-        }
-        if (validate() == true) {
-            var friendData = {
-                name: $("#yourName").val().trim(),
-                photo: $("#yourPhoto").val().trim(),
-                scores: [$("#select1").val(), $("#select2").val(), $("#select3").val(), $("#select4").val(),
-                $("#select5").val(), $("#select6").val(), $("#select7").val(), $("#select8").val(),
-                $("#select9").val(), $("#select10").val()]
-            }
-            console.log(friendData);
-            // store URL into a variable
-            var currentURL = window.location.origin;
-            $.ajax({ url: currentURL + '/api/friends', data: friendData, method: "POST" }).done(function (data) {
-                // post request sends to the api route which then pushes it to the friends array. The json response is sent back as data and can be console.log
-                console.log(JSON.stringify(data));
-                // Take response and post it to modal
-                $("#matchName").text(data.name);
-                $("#matchImg").attr("src", data.photo);
-                // Toggle the modal after data has been added
-                $("#myModal").modal('toggle');
-            });
-
-
-
-
-
-        } else {
-            console.log("nope");
-        }
-        return false;
-
-    });
-</script>
