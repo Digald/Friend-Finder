@@ -21,4 +21,5 @@ There is no database attached to this application so storage will only persist a
 * Express
 
 ## Todo and bugs
-1) I have not been able to correctly validate information users submit. Users are still being allowed to submit null data in their survey questions. 
+1. I have not been able to correctly validate information users submit. Users are still being allowed to submit null data in their survey questions. 
+2. The form does not reset to default blanks when a user submits.
